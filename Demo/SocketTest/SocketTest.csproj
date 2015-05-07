@@ -32,17 +32,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Models">
-      <HintPath>..\Demo\Server\bin\Debug\Models.dll</HintPath>
-    </Reference>
-    <Reference Include="NetworkSocket, Version=1.2.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Net40\NetworkSocket\bin\Debug\NetworkSocket.dll</HintPath>
-    </Reference>
-    <Reference Include="NetworkSocket.Fast, Version=1.2.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Net40\NetworkSocket.Fast\bin\Debug\NetworkSocket.Fast.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -57,6 +46,20 @@
     <Compile Include="MyServerProxyBase.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Net40\NetworkSocket.Fast\NetworkSocket.Fast.csproj">
+      <Project>{6d50ea40-87cb-40d8-9cf6-57308bbd8fdf}</Project>
+      <Name>NetworkSocket.Fast</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Net40\NetworkSocket\NetworkSocket.csproj">
+      <Project>{80d0fa44-523b-4e68-bdc2-b12901d5855b}</Project>
+      <Name>NetworkSocket</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Models\Models.csproj">
+      <Project>{f9b37780-6345-4e6f-8523-687f56895625}</Project>
+      <Name>Models</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
