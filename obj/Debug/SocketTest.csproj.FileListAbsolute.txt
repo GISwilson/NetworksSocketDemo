@@ -1,0 +1,13 @@
+E:\桌面\networksocket-32052\networksocket-32052\SocketTest\bin\Debug\SocketTest.exe
+E:\桌面\networksocket-32052\networksocket-32052\SocketTest\bin\Debug\SocketTest.pdb
+E:\桌面\networksocket-32052\networksocket-32052\SocketTest\bin\Debug\Models.dll
+E:\桌面\networksocket-32052\networksocket-32052\SocketTest\bin\Debug\NetworkSocket.dll
+E:\桌面\networksocket-32052\networksocket-32052\SocketTest\bin\Debug\NetworkSocket.Fast.dll
+E:\桌面\networksocket-32052\networksocket-32052\SocketTest\bin\Debug\Models.pdb
+E:\桌面\networksocket-32052\networksocket-32052\SocketTest\bin\Debug\NetworkSocket.pdb
+E:\桌面\networksocket-32052\networksocket-32052\SocketTest\bin\Debug\NetworkSocket.xml
+E:\桌面\networksocket-32052\networksocket-32052\SocketTest\bin\Debug\NetworkSocket.Fast.pdb
+E:\桌面\networksocket-32052\networksocket-32052\SocketTest\bin\Debug\NetworkSocket.Fast.xml
+E:\桌面\networksocket-32052\networksocket-32052\SocketTest\obj\Debug\SocketTest.csprojResolveAssemblyReference.cache
+E:\桌面\networksocket-32052\networksocket-32052\SocketTest\obj\Debug\SocketTest.exe
+E:\桌面\networksocket-32052\networksocket-32052\SocketTest\obj\Debug\SocketTest.pdb

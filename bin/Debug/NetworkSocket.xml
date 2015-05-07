@@ -1,0 +1,700 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>NetworkSocket</name>
+    </assembly>
+    <members>
+        <member name="T:NetworkSocket.ByteBuilder">
+            <summary>
+            可变长byte集合 
+            非线程安全类型
+            多线程下请锁住自身的SyncRoot字段
+            </summary>
+        </member>
+        <member name="M:NetworkSocket.ByteBuilder.#ctor">
+            <summary>
+            可变长byte集合
+            默认容量是1024byte
+            </summary>
+        </member>
+        <member name="M:NetworkSocket.ByteBuilder.#ctor(System.Int32)">
+            <summary>
+            可变长byte集合
+            </summary>
+            <param name="capacity">容量[乘2倍数增长]</param>
+        </member>
+        <member name="M:NetworkSocket.ByteBuilder.Add(System.Int16,System.Boolean)">
+            <summary>
+            将16位整数转换为byte数组再添加
+            </summary>
+            <param name="value">整数</param>
+            <param name="littleEndian">是否低位在前</param>
+        </member>
+        <member name="M:NetworkSocket.ByteBuilder.Add(System.Int32,System.Boolean)">
+            <summary>
+            将32位整数转换为byte数组再添加
+            </summary>
+            <param name="value">整数</param>
+            <param name="littleEndian">是否低位在前</param>
+        </member>
+        <member name="M:NetworkSocket.ByteBuilder.Add(System.Byte[])">
+            <summary>
+            将指定数据源的数据添加到集合
+            </summary>
+            <param name="value">数据源</param>
+            <returns></returns>
+        </member>
+        <member name="M:NetworkSocket.ByteBuilder.Add(System.Byte[],System.Int32,System.Int32)">
+            <summary>
+            将指定数据源的数据添加到集合
+            </summary>
+            <param name="value">数据源</param>
+            <param name="index">数据源的起始位置</param>
+            <param name="length">复制的长度</param>
+        </member>
+        <member name="M:NetworkSocket.ByteBuilder.RemoveRange(System.Int32)">
+            <summary>
+            从0位置清除指定长度的字节
+            </summary>
+            <param name="length">长度</param>
+        </member>
+        <member name="M:NetworkSocket.ByteBuilder.CopyTo(System.Byte[],System.Int32,System.Int32)">
+            <summary>
+            从0位置将数据复制到指定数组
+            </summary>
+            <param name="destArray">目标数组</param>
+            <param name="index">目标数据索引</param>
+            <param name="length">复制长度</param>
+        </member>
+        <member name="M:NetworkSocket.ByteBuilder.CutTo(System.Byte[],System.Int32,System.Int32)">
+            <summary>
+            从0位置将数据剪切到指定数组
+            </summary>
+            <param name="destArray">目标数组</param>
+            <param name="index">目标数据索引</param>
+            <param name="length">剪切长度</param>
+        </member>
+        <member name="M:NetworkSocket.ByteBuilder.ToInt16(System.Int32,System.Boolean)">
+            <summary>
+            读取指定位置2个字节，返回其Int16表示类型
+            </summary>
+            <param name="index">字节所在索引</param>
+            <param name="littleEndian">是否低位在前</param>
+            <returns></returns>
+        </member>
+        <member name="M:NetworkSocket.ByteBuilder.ToInt32(System.Int32,System.Boolean)">
+            <summary>
+            读取指定位置4个字节，返回其Int32表示类型
+            </summary>
+            <param name="index">字节所在索引</param>
+            <param name="littleEndian">是否低位在前</param>
+            <returns></returns>
+        </member>
+        <member name="M:NetworkSocket.ByteBuilder.ToArray">
+            <summary>
+            返回有效的数据
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:NetworkSocket.ByteBuilder.ToArray(System.Int32,System.Int32)">
+            <summary>
+            返回指定长度的数据
+            </summary>
+            <param name="index">索引</param>
+            <param name="length">长度</param>
+            <returns></returns>
+        </member>
+        <member name="M:NetworkSocket.ByteBuilder.ElementAt(System.Int32)">
+            <summary>
+            返回指定位置的字节
+            </summary>
+            <param name="index">索引位置</param>
+            <returns></returns>
+        </member>
+        <member name="M:NetworkSocket.ByteBuilder.Clear">
+            <summary>
+            清空数据 
+            容量不受到影响
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:NetworkSocket.ByteBuilder.ToString">
+            <summary>
+            字符串显示
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:NetworkSocket.ByteBuilder.Capacity">
+            <summary>
+            获取容量
+            </summary>
+        </member>
+        <member name="P:NetworkSocket.ByteBuilder.Length">
+            <summary>
+            获取有效数量长度
+            </summary>
+        </member>
+        <member name="P:NetworkSocket.ByteBuilder.SyncRoot">
+            <summary>
+            获取同步锁
+            </summary>
+        </member>
+        <member name="P:NetworkSocket.ByteBuilder.SourceBuffer">
+            <summary>
+            获取原始数据
+            </summary>
+        </member>
+        <member name="T:NetworkSocket.ByteConverter">
+            <summary>
+            byte类型转换工具类
+            提供byte和整型之间的转换
+            </summary>
+        </member>
+        <member name="M:NetworkSocket.ByteConverter.ToInt32(System.Byte[],System.Int32,System.Boolean)">
+            <summary>
+            返回由字节数组中指定位置的四个字节转换来的32位有符号整数
+            </summary>
+            <param name="bytes">字节数组</param>
+            <param name="startIndex">位置</param>    
+            <param name="littleEndian">是否低位在前</param>
+            <returns></returns>        
+        </member>
+        <member name="M:NetworkSocket.ByteConverter.ToInt16(System.Byte[],System.Int32,System.Boolean)">
+            <summary>
+            返回由字节数组中指定位置的四个字节转换来的16位有符号整数
+            </summary>
+            <param name="bytes">字节数组</param>
+            <param name="startIndex">位置</param>    
+            <param name="littleEndian">是否低位在前</param>
+            <returns></returns>
+        </member>
+        <member name="M:NetworkSocket.ByteConverter.ToBytes(System.Int32,System.Boolean)">
+            <summary>
+            返回由32位有符号整数转换为的字节数组
+            </summary>
+            <param name="value">整数</param>    
+            <param name="littleEndian">是否低位在前</param>
+            <returns></returns>
+        </member>
+        <member name="M:NetworkSocket.ByteConverter.ToBytes(System.Int16,System.Boolean)">
+            <summary>
+            返回由16位有符号整数转换为的字节数组
+            </summary>
+            <param name="value">整数</param>    
+            <param name="littleEndian">是否低位在前</param>
+            <returns></returns>
+        </member>
+        <member name="T:NetworkSocket.ISerializer">
+            <summary>
+            定义对象的序列化与反序列化的接口
+            </summary>
+        </member>
+        <member name="M:NetworkSocket.ISerializer.Serialize(System.Object)">
+            <summary>
+            序列化为二进制
+            </summary>
+            <param name="model">实体</param>
+            <returns></returns>
+        </member>
+        <member name="M:NetworkSocket.ISerializer.Deserialize(System.Byte[],System.Type)">
+            <summary>
+            反序列化为实体
+            </summary>
+            <param name="bytes">数据</param>
+            <param name="type">实体类型</param>
+            <returns></returns>
+        </member>
+        <member name="T:NetworkSocket.SocketAsyncCollection`1">
+            <summary>
+            SocketAsync集合 
+            线程安全类型
+            </summary>
+            <typeparam name="T">数据类型</typeparam>
+        </member>
+        <member name="F:NetworkSocket.SocketAsyncCollection`1.dic">
+            <summary>
+            线程安全字典
+            </summary>
+        </member>
+        <member name="M:NetworkSocket.SocketAsyncCollection`1.#ctor">
+            <summary>
+            SocketAsync唯一集合
+            </summary>
+        </member>
+        <member name="M:NetworkSocket.SocketAsyncCollection`1.Add(NetworkSocket.SocketAsync{`0})">
+            <summary>
+            添加元素
+            如果已包含此元素则返回false，同时不会增加记录
+            </summary>
+            <param name="socketAsync">元素</param>
+            <returns></returns>
+        </member>
+        <member name="M:NetworkSocket.SocketAsyncCollection`1.Remove(NetworkSocket.SocketAsync{`0})">
+            <summary>
+            移除元素
+            如果元素不存在而返回false
+            </summary>
+            <param name="socketAsync">元素</param>
+            <returns></returns>
+        </member>
+        <member name="M:NetworkSocket.SocketAsyncCollection`1.Clear">
+            <summary>
+            清空所有元素
+            </summary>
+        </member>
+        <member name="M:NetworkSocket.SocketAsyncCollection`1.ToArray">
+            <summary>
+            将对象复制到数组中
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:NetworkSocket.SocketAsyncCollection`1.GetEnumerator">
+            <summary>
+            获取枚举器
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:NetworkSocket.SocketAsyncCollection`1.System#Collections#IEnumerable#GetEnumerator">
+            <summary>
+            获取枚举器
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:NetworkSocket.SocketAsyncCollection`1.Count">
+            <summary>
+            获取元素的数量
+            </summary>
+        </member>
+        <member name="T:NetworkSocket.PacketBase">
+            <summary>
+            通讯协议数据包抽象类
+            要求所有协议实现此类的抽象方法
+            </summary>
+        </member>
+        <member name="M:NetworkSocket.PacketBase.ToByteArray">
+            <summary>
+            转换为二进制数据
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:NetworkSocket.SocketAsyncPool`1">
+            <summary>
+            SocketAsyn无序集合
+            线程安全类型
+            </summary>
+            <typeparam name="T">PacketBase派生类型</typeparam>
+        </member>
+        <member name="F:NetworkSocket.SocketAsyncPool`1.bag">
+            <summary>
+            无序集合
+            </summary>
+        </member>
+        <member name="M:NetworkSocket.SocketAsyncPool`1.#ctor">
+            <summary>
+            SocketAsyn无序集合
+            </summary>
+        </member>
+        <member name="M:NetworkSocket.SocketAsyncPool`1.Add(NetworkSocket.SocketAsync{`0})">
+            <summary>
+            添加SocketAsync
+            </summary>
+            <param name="SocketAsync"></param>
+        </member>
+        <member name="M:NetworkSocket.SocketAsyncPool`1.Take">
+            <summary>
+            取出并返回SocketAsync
+            如果取出失败，则new新的SocketAsync并返回
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:NetworkSocket.SocketAsyncPool`1.Count">
+            <summary>
+            元素数量
+            </summary>
+        </member>
+        <member name="T:NetworkSocket.TagInfo">
+            <summary>
+            表示附加信息
+            </summary>
+        </member>
+        <member name="M:NetworkSocket.TagInfo.ToString">
+            <summary>
+            字符串显示
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:NetworkSocket.TagInfo.ID">
+            <summary>
+            获取或设置关联的远程端唯一标识符
+            </summary>
+        </member>
+        <member name="P:NetworkSocket.TagInfo.IsValidated">
+            <summary>
+            获取或设置关联的远程端是否已验证通过
+            </summary>
+        </member>
+        <member name="P:NetworkSocket.TagInfo.Token">
+            <summary>
+            获取或设置关联的远程端用户信息
+            </summary>
+        </member>
+        <member name="T:NetworkSocket.TcpClientBase`1">
+            <summary>
+            Tcp客户端抽象类
+            所有Tcp客户端都派生于此类
+            </summary>
+            <typeparam name="T">PacketBase派生类型</typeparam>
+        </member>
+        <member name="T:NetworkSocket.SocketAsync`1">
+            <summary>
+            异步Socket对象 
+            提供异步发送和接收方法
+            </summary>
+            <typeparam name="T">PacketBase派生类型</typeparam>
+        </member>
+        <member name="F:NetworkSocket.SocketAsync`1.bufferSize">
+            <summary>
+            接收或发送缓冲区大小
+            </summary>
+        </member>
+        <member name="F:NetworkSocket.SocketAsync`1.argsBuffer">
+            <summary>
+            接收和发送的缓冲区
+            </summary>
+        </member>
+        <member name="F:NetworkSocket.SocketAsync`1.recvArg">
+            <summary>
+            接收参数
+            </summary>
+        </member>
+        <member name="F:NetworkSocket.SocketAsync`1.recvBuilder">
+            <summary>
+            接收到的未处理数据
+            </summary>
+        </member>
+        <member name="F:NetworkSocket.SocketAsync`1.sendArg">
+            <summary>
+            发送参数
+            </summary>
+        </member>
+        <member name="F:NetworkSocket.SocketAsync`1.sendBuilder">
+            <summary>
+            发送的数据
+            </summary>
+        </member>
+        <member name="F:NetworkSocket.SocketAsync`1.socket">
+            <summary>
+            socket
+            </summary>
+        </member>
+        <member name="F:NetworkSocket.SocketAsync`1.isSending">
+            <summary>
+            是否正在异步发送中
+            </summary>
+        </member>
+        <member name="M:NetworkSocket.SocketAsync`1.#ctor">
+            <summary>
+            异步Socket
+            </summary>  
+        </member>
+        <member name="M:NetworkSocket.SocketAsync`1.BindSocket(System.Net.Sockets.Socket)">
+            <summary>
+            将Socket对象与此对象绑定
+            </summary>
+            <param name="socket">套接字</param>
+        </member>
+        <member name="M:NetworkSocket.SocketAsync`1.CloseSocket">
+            <summary>
+            关闭socket
+            </summary>
+        </member>
+        <member name="M:NetworkSocket.SocketAsync`1.IO_Completed(System.Object,System.Net.Sockets.SocketAsyncEventArgs)">
+            <summary>
+            Socket IO完成事件
+            </summary>
+            <param name="sender"></param>
+            <param name="arg"></param>
+        </member>
+        <member name="M:NetworkSocket.SocketAsync`1.ProcessSend(System.Net.Sockets.SocketAsyncEventArgs)">
+            <summary>
+            处理发送数据后的socket
+            </summary>
+            <param name="arg"></param>
+        </member>
+        <member name="M:NetworkSocket.SocketAsync`1.ProcessReceive(System.Net.Sockets.SocketAsyncEventArgs)">
+            <summary>
+            处理Socket接收的数据
+            </summary>
+            <param name="arg"></param>
+        </member>
+        <member name="M:NetworkSocket.SocketAsync`1.ProcessClose">
+            <summary>
+            处理Socket的关闭
+            </summary>
+        </member>
+        <member name="M:NetworkSocket.SocketAsync`1.Send(`0)">
+            <summary>
+            异步发送数据
+            </summary>
+            <param name="packet">数据参数</param>
+        </member>
+        <member name="M:NetworkSocket.SocketAsync`1.Send(System.Byte[])">
+            <summary>
+            异步发送数据
+            简单地将二进制数据发送       
+            </summary>
+            <param name="buffer">数据</param>
+        </member>
+        <member name="M:NetworkSocket.SocketAsync`1.SplitBufferToSendAsync">
+            <summary>
+            将发送数据拆开分批异步发送
+            因为不能对SendArg连续调用SendAsync方法      
+            </summary>
+        </member>
+        <member name="M:NetworkSocket.SocketAsync`1.ToString">
+            <summary>
+            字符串显示
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:NetworkSocket.SocketAsync`1.Dispose">
+            <summary>
+            关闭和释放所有相关资源
+            </summary>
+        </member>
+        <member name="M:NetworkSocket.SocketAsync`1.Finalize">
+            <summary>
+            析构函数
+            </summary>
+        </member>
+        <member name="M:NetworkSocket.SocketAsync`1.Dispose(System.Boolean)">
+            <summary>
+            释放资源
+            </summary>
+            <param name="disposing">是否也释放托管资源</param>
+        </member>
+        <member name="P:NetworkSocket.SocketAsync`1.ReceiveHandler">
+            <summary>
+            处理和分析收到的数据的委托
+            </summary>
+        </member>
+        <member name="P:NetworkSocket.SocketAsync`1.SendHandler">
+            <summary>
+            发送数据的委托
+            </summary>
+        </member>
+        <member name="E:NetworkSocket.SocketAsync`1.Disconnect">
+            <summary>
+            连接断开事件    
+            </summary>
+        </member>
+        <member name="E:NetworkSocket.SocketAsync`1.RecvComplete">
+            <summary>
+            接收一个数据包事件
+            </summary>
+        </member>
+        <member name="P:NetworkSocket.SocketAsync`1.Tag">
+            <summary>
+            获取关联的额外信息
+            </summary>
+        </member>
+        <member name="P:NetworkSocket.SocketAsync`1.RemoteEndPoint">
+            <summary>
+            获取远程终结点
+            </summary>
+        </member>
+        <member name="P:NetworkSocket.SocketAsync`1.IsConnected">
+            <summary>
+            获取是否已连接到远程端
+            </summary>
+        </member>
+        <member name="P:NetworkSocket.SocketAsync`1.IsDisposed">
+            <summary>
+            获取是否已释放
+            </summary>
+        </member>
+        <member name="F:NetworkSocket.TcpClientBase`1.connectArg">
+            <summary>
+            连接参数
+            </summary>
+        </member>
+        <member name="M:NetworkSocket.TcpClientBase`1.#ctor">
+            <summary>
+            Tcp客户端抽象类
+            </summary>
+        </member>
+        <member name="M:NetworkSocket.TcpClientBase`1.Connect(System.Net.EndPoint)">
+            <summary>
+            连接到指定服务器
+            如果已存在连接，此方法将不生效
+            </summary>
+            <param name="endPoint">服务ip和端口</param> 
+            <returns></returns>
+        </member>
+        <member name="M:NetworkSocket.TcpClientBase`1.OnReceive(NetworkSocket.ByteBuilder)">
+            <summary>
+            当接收到远程端的数据时，将触发此方法
+            此方法用于处理和分析收到的数据
+            如果得到一个数据包，将触发OnRecvComplete方法
+            [注]这里只需处理一个数据包的流程
+            </summary>
+            <param name="recvBuilder">接收到的历史数据</param>
+            <returns>如果不够一个数据包，则请返回null</returns>
+        </member>
+        <member name="M:NetworkSocket.TcpClientBase`1.OnSend(`0)">
+            <summary>
+            发送之前触发
+            </summary>
+            <param name="packet">数据参数</param>
+        </member>
+        <member name="M:NetworkSocket.TcpClientBase`1.OnRecvComplete(`0)">
+            <summary>
+            当接收到数据包，将触发此方法
+            </summary>
+            <param name="packet">数据包</param>
+        </member>
+        <member name="M:NetworkSocket.TcpClientBase`1.OnDisconnect">
+            <summary>
+            当与服务器断开连接时，将触发此方法
+            </summary>       
+        </member>
+        <member name="M:NetworkSocket.TcpClientBase`1.Close">
+            <summary>
+            关闭现有连接
+            </summary>
+        </member>
+        <member name="M:NetworkSocket.TcpClientBase`1.Dispose(System.Boolean)">
+            <summary>
+            清理和释放相关资源
+            </summary>
+            <param name="disposing"></param>
+        </member>
+        <member name="T:NetworkSocket.TcpServerBase`1">
+            <summary>
+            Tcp服务端抽象类
+            提供对客户端池的初始化、自动回收重用、在线客户端列表维护功能
+            提供客户端连接、断开通知功能
+            所有Tcp服务端都派生于此类
+            </summary>
+            <typeparam name="T">PacketBase派生类型</typeparam>
+        </member>
+        <member name="F:NetworkSocket.TcpServerBase`1.acceptArg">
+            <summary>
+            请求参数
+            </summary>
+        </member>
+        <member name="F:NetworkSocket.TcpServerBase`1.socket">
+            <summary>
+            服务socket
+            </summary>
+        </member>
+        <member name="F:NetworkSocket.TcpServerBase`1.pool">
+            <summary>
+            客户端连接池
+            </summary>
+        </member>
+        <member name="M:NetworkSocket.TcpServerBase`1.#ctor">
+            <summary>
+            Tcp服务端抽象类
+            </summary> 
+        </member>
+        <member name="M:NetworkSocket.TcpServerBase`1.StartListen(System.Net.EndPoint)">
+            <summary>
+            开始启动监听
+            </summary>
+            <param name="endPoint">要监听的IP和端口</param>
+        </member>
+        <member name="M:NetworkSocket.TcpServerBase`1.BenginAccept(System.Net.Sockets.SocketAsyncEventArgs)">
+            <summary>
+            接受请求
+            </summary>
+            <param name="acceptArg"></param>     
+        </member>
+        <member name="M:NetworkSocket.TcpServerBase`1.Accept_Completed(System.Object,System.Net.Sockets.SocketAsyncEventArgs)">
+            <summary>
+            受到连接请求
+            </summary>
+            <param name="sender"></param>
+            <param name="acceptArg"></param>
+        </member>
+        <member name="M:NetworkSocket.TcpServerBase`1.ProcessAccept(System.Net.Sockets.SocketAsyncEventArgs)">
+            <summary>
+            处理请求
+            </summary>
+            <param name="acceptArg"></param>
+        </member>
+        <member name="M:NetworkSocket.TcpServerBase`1.OnReceive(NetworkSocket.ByteBuilder)">
+            <summary>
+            当接收到远程端的数据时，将触发此方法
+            此方法用于处理和分析收到的数据
+            如果得到一个数据包，将触发OnRecvComplete方法
+            [注]这里只需处理一个数据包的流程
+            </summary>
+            <param name="recvBuilder">接收到的历史数据</param>
+            <returns>如果不够一个数据包，则请返回null</returns>
+        </member>
+        <member name="M:NetworkSocket.TcpServerBase`1.OnSend(`0)">
+            <summary>
+            发送之前触发
+            </summary>      
+            <param name="packet">数据参数</param>
+        </member>
+        <member name="M:NetworkSocket.TcpServerBase`1.OnRecvComplete(NetworkSocket.SocketAsync{`0},`0)">
+            <summary>
+            当收到到数据包时，将触发此方法
+            </summary>
+            <param name="client">客户端</param>
+            <param name="packet">数据包</param>
+        </member>
+        <member name="M:NetworkSocket.TcpServerBase`1.socketAsync_Disconnect(NetworkSocket.SocketAsync{`0})">
+            <summary>
+            客户端socket关闭
+            </summary>
+            <param name="client">客户端</param>     
+        </member>
+        <member name="M:NetworkSocket.TcpServerBase`1.OnDisconnect(NetworkSocket.SocketAsync{`0})">
+            <summary>
+            当客户端断开连接时，将触发此方法
+            </summary>
+            <param name="client">客户端</param>     
+        </member>
+        <member name="M:NetworkSocket.TcpServerBase`1.OnConnect(NetworkSocket.SocketAsync{`0})">
+            <summary>
+            当客户端连接时，将触发此方法
+            </summary>
+            <param name="client">客户端</param>
+        </member>
+        <member name="M:NetworkSocket.TcpServerBase`1.CloseClient(NetworkSocket.SocketAsync{`0})">
+            <summary>
+            关闭并复用SocketAsync
+            </summary>
+            <param name="client">表示客户端的SocketAsync对象</param>
+        </member>
+        <member name="M:NetworkSocket.TcpServerBase`1.Dispose">
+            <summary>
+            关闭和释放所有相关资源
+            </summary>
+        </member>
+        <member name="M:NetworkSocket.TcpServerBase`1.Finalize">
+            <summary>
+            析构函数
+            </summary>
+        </member>
+        <member name="M:NetworkSocket.TcpServerBase`1.Dispose(System.Boolean)">
+            <summary>
+            释放资源
+            </summary>
+            <param name="disposing">是否也释放托管资源</param>
+        </member>
+        <member name="P:NetworkSocket.TcpServerBase`1.AliveClients">
+            <summary>
+            获取所有连接的客户端对象   
+            </summary>
+        </member>
+        <member name="P:NetworkSocket.TcpServerBase`1.IsDisposed">
+            <summary>
+            获取对象是否已释放
+            </summary>
+        </member>
+    </members>
+</doc>
