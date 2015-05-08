@@ -157,7 +157,7 @@ namespace Server
         public string SendStrData(SocketAsync<FastPacket> client, string data)
         {
             num++;
-            Console.WriteLine("收到数据为{0},这是接收到的第{1}个数据", data, num.ToString());
+            Console.WriteLine("收到数据的大小为{0},这是接收到的第{1}个数据", data.Length, num.ToString());
             return data;
         }
 
