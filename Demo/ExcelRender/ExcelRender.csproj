@@ -32,7 +32,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="NPOI">
-      <HintPath>..\packages\NPOI.dll</HintPath>
+      <HintPath>..\..\..\..\..\My Documents\Visual Studio 2010\Projects\58数据采集\ExcelRender\bin\Debug\NPOI.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />

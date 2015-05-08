@@ -343,6 +343,16 @@ namespace SocketTest
             dataGridView2.Invalidate();
         }
 
+        private void button4_Click(object sender, EventArgs e)
+        {
+            SaveFileDialog dialog = new SaveFileDialog();
+            dialog.Filter = "Excel文件|*.xls";
+            if (dialog.ShowDialog() == DialogResult.OK)
+            {
+                ExcelRender.ExcelRender.RenderToExcel(dtFrequencyShow, dialog.FileName);
+            }
+        }
+
         //详表
         private void button9_Click(object sender, EventArgs e)
         {
@@ -369,7 +379,6 @@ namespace SocketTest
             timer.Start();
         }
 
-        
 
     }
 
