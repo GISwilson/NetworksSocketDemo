@@ -21,6 +21,7 @@ namespace SocketTest
         private MyServer myServer;//客户端的通信对象
         private const string TYPE = "NetworkSocket开源组件";
         private bool isConeneted = false;//是否已连接服务器
+        private static object _sync = new object();//同步锁
 
         private DataTable dtBigDataTotalTest;//所有大数据量测试的数据
         private DataTable dtBigDataShow;//用于显示大数据量测试结果的数据
@@ -80,7 +81,7 @@ namespace SocketTest
         #endregion
 
         #region 大数据量通信测试
-        
+
         private void button2_Click(object sender, EventArgs e)
         {
             if (!isConeneted)
@@ -89,19 +90,20 @@ namespace SocketTest
                 return;
             }
             Action<int, int> a = (strNum, times) => { TestBigData(strNum, times); };
-            IAsyncResult result = a.BeginInvoke(Convert.ToInt32(numericUpDown2.Value)*1024, Convert.ToInt32(numericUpDown1.Value),
-                new AsyncCallback((asyncResult)=>{
+            IAsyncResult result = a.BeginInvoke(Convert.ToInt32(numericUpDown2.Value) * 1024, Convert.ToInt32(numericUpDown1.Value),
+                new AsyncCallback((asyncResult) =>
+                {
                     if (asyncResult.IsCompleted)
                     {
                         MessageBox.Show("测试完毕！");
                     }
                 }),
                 null);
-           // a.EndInvoke(result);
+            // a.EndInvoke(result);
             //while (!result.IsCompleted)
             //{
             //}
-            
+
             //TestBigData(Convert.ToInt32(numericUpDown2.Value),Convert.ToInt32(numericUpDown1.Value));
         }
 
@@ -120,17 +122,18 @@ namespace SocketTest
                 var watch = Stopwatch.StartNew();
                 watch.Start();
                 var aa = myServer.GetItself(msg);
-                while (!aa.IsCompleted)
-                {
-                }
+                aa.Wait();
+                //while (!aa.IsCompleted)
+                //{
+                //}
                 watch.Stop();
                 //统计数据记录
-                values.Add(watch.ElapsedMilliseconds);
+                values.Add(watch.ElapsedMilliseconds/2);
                 //整体数据记录
                 DataRow row = dtBigDataTotalTest.NewRow();
                 row[0] = i;
-                row[1] = strNum/1024;
-                row[2] = watch.ElapsedMilliseconds / 2.0;
+                row[1] = strNum / 1024;
+                row[2] = watch.ElapsedMilliseconds /2;
 
                 dtBigDataTotalTest.Rows.Add(row);
                 //更新显示数据
@@ -138,7 +141,7 @@ namespace SocketTest
                 {
                     DataRow newRow = dtBigDataShow.NewRow();
                     newRow[0] = statisticNode;
-                    newRow[1] = strNum/1024;
+                    newRow[1] = strNum / 1024;
                     newRow[2] = TYPE;
                     newRow[3] = values.GetAverage().ToString("n");
                     newRow[4] = values.GetBiaozhunCha().ToString("n");
@@ -147,7 +150,7 @@ namespace SocketTest
 
                     dtBigDataShow.Rows.Add(newRow);
                     //实时显示数据
-                    this.Invoke(new Action(delegate()
+                    this.Invoke(new Action(() =>
                     {
                         if (!(this.dataGridView1.Disposing || this.dataGridView1.IsDisposed))
                         {
@@ -161,11 +164,11 @@ namespace SocketTest
                     statisticNode *= 10;
                 }
                 //this.dataGridView1.DataSource = dt;
-                
+
                 Thread.Sleep(10);
                 //updateDgv.Invoke(dt);
                 //dataGridView1.Update();
-                
+
             }
             //DataRow rowSum = dtBigDataTotalTest.NewRow();
             //rowSum[0] = strNum;
@@ -237,7 +240,7 @@ namespace SocketTest
             //var watch = Stopwatch.StartNew();
             string data = new string('a', strNum);
             var totalWatch = Stopwatch.StartNew();
-            
+
             timer.Elapsed += (sender, e) =>
             {
                 //long runMiliseconds = totalWatch.ElapsedMilliseconds;
@@ -264,7 +267,7 @@ namespace SocketTest
                 //            this.dataGridView2.Invalidate();
                 //        }
                 //    }));
-                    
+
                 //}
                 if (totalWatch.ElapsedMilliseconds >= executionTime * 1000)
                 {
@@ -275,7 +278,7 @@ namespace SocketTest
                     //watch.Start();
                     DataRow row = dtFrequencyTotalTest.NewRow();
                     data = new string('a', strNum + new Random().Next(1, 100));
-                    lock (data)
+                    lock (_sync)
                     {
                         //watch.Stop();
                         row[0] = index;
@@ -289,7 +292,7 @@ namespace SocketTest
                         values.Add(row[2].ToString() == row[3].ToString() ? 0 : 1);
                         if (values.Count >= statisticNode)
                         {
-                            
+
                             int totalNum = dtFrequencyTotalTest.Rows.Count;
                             long wrongNum = values.Sum();
                             DataRow newRow = dtFrequencyShow.NewRow();
@@ -309,7 +312,7 @@ namespace SocketTest
                                     this.dataGridView2.Invalidate();
                                 }
                             }));
-                            
+
                         }
                         //row[2] = watch.ElapsedMilliseconds;
                         dtFrequencyTotalTest.Rows.Add(row);
@@ -358,7 +361,7 @@ namespace SocketTest
         {
             for (int i = 0; i < dtFrequencyTotalTest.Rows.Count; i++)
             {
-                dtFrequencyTotalTest.Rows[i][0] = i+1;
+                dtFrequencyTotalTest.Rows[i][0] = i + 1;
             }
             FormDetail frm = new FormDetail(dtFrequencyTotalTest);
             frm.Show();
